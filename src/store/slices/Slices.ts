@@ -4,12 +4,12 @@ let initialState: {
     value: string,
     history: string,
     result: string,
-    prevOperator: null | string,
+    prevOperator: string[];
 } = {
     value: '0',
     history: '0',
     result: '0',
-    prevOperator: null,
+    prevOperator: [],
 };
 
 interface ReturnState {
@@ -21,7 +21,6 @@ interface ReturnState {
 const checkOperatorRepeat = (stateValue: string, stateHistory: string, result: string, actionValue: string): ReturnState => {
     if (stateValue[stateValue.length - 1] === '+' || stateValue[stateValue.length - 1] === '-' ||
         stateValue[stateValue.length - 1] === '/' || stateValue[stateValue.length - 1] === 'x') {
-        console.log(result.slice(0, -2))
 
         result = result.slice(0, -1) + (actionValue === 'x' ? '*' : actionValue);
         stateValue = actionValue;
@@ -44,7 +43,7 @@ export const slice = createSlice({
     reducers: {
         updateDisplayValue: (state, action) => {
             const value = action.payload.value;
-            
+
             switch (action.payload.type) {
                 case 'digits':
                     if (state.value.length === 8) {
@@ -53,6 +52,13 @@ export const slice = createSlice({
                         state.history = 'Digit Limit Met';
                         break
                     }
+                    if (value === '0' && state.value.slice(-1) === '/') {
+                        state.value = '...';
+                        state.history = "can't divide by zero!"
+                        state.result = '0'
+                        break
+                    }
+
                     if (state.value === '0') {
                         state.result = value;
                         state.value = value;
@@ -64,24 +70,33 @@ export const slice = createSlice({
                     }
                     break;
                 case 'operator':
-                    if (value === '=') {;
-                        state.result = String( Math.floor(+eval(state.result) * 100) / 100 );
-                        state.value = state.result;
-                        state.history += `${value}${state.result}`;
+                    state.prevOperator.push(value)
+                    if (value === '=') {
+                        if (state.prevOperator[state.prevOperator.length - 2] === '=') {
+                            break
+                        } else {
+                            state.result = String(Math.floor(+eval(state.result) * 100) / 100);
+                            state.value = state.result;
+                            state.history += `${value}${state.result}`;
+                        }
                     }
                     else {
                         let newState = checkOperatorRepeat(state.value, state.history, state.result, value);
                         state.value = newState.stateValue;
                         state.history = newState.stateHistory;
                         state.result = newState.result;
+                        if (state.prevOperator[state.prevOperator.length - 2] === '=') {
+                            state.history = state.result.slice(0, -1) + value;
+                        }
                     }
                     break;
                 case 'special':
                     switch (value) {
                         case 'ac':
                             state.value = '0';
-                            state.history = '0'
+                            state.history = '0';
                             state.result = '0';
+                            state.prevOperator = []
                             break;
                         case '<':
                             if (state.value.length === 1) {

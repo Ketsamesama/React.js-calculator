@@ -1,15 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-let initialState = {
+let initialState: {
+    value: string,
+    history: string,
+    result: string,
+    prevOperator: null | string,
+} = {
     value: '0',
     history: '0',
     result: '0',
+    prevOperator: null,
 };
 
 interface ReturnState {
     result: string,
     stateValue: string,
-    stateHistory: string
+    stateHistory: string,
 }
 
 const checkOperatorRepeat = (stateValue: string, stateHistory: string, result: string, actionValue: string): ReturnState => {
@@ -18,12 +24,11 @@ const checkOperatorRepeat = (stateValue: string, stateHistory: string, result: s
         console.log(result.slice(0, -2))
 
         result = result.slice(0, -1) + (actionValue === 'x' ? '*' : actionValue);
-        stateValue = stateValue.slice(0, -1) + actionValue;
+        stateValue = actionValue;
         stateHistory = stateHistory.slice(0, -1) + actionValue;
     } else {
-
         result += (actionValue === 'x' ? '*' : actionValue);
-        stateValue += actionValue;
+        stateValue = actionValue;
         stateHistory += actionValue;
     }
     return {
@@ -39,9 +44,15 @@ export const slice = createSlice({
     reducers: {
         updateDisplayValue: (state, action) => {
             const value = action.payload.value;
-
+            
             switch (action.payload.type) {
-                case 'numbers':
+                case 'digits':
+                    if (state.value.length === 8) {
+                        state.result = '0';
+                        state.value = '0';
+                        state.history = 'Digit Limit Met';
+                        break
+                    }
                     if (state.value === '0') {
                         state.result = value;
                         state.value = value;
@@ -53,8 +64,8 @@ export const slice = createSlice({
                     }
                     break;
                 case 'operator':
-                    if (value === '=') {
-                        state.result = eval(state.result);
+                    if (value === '=') {;
+                        state.result = String( Math.floor(+eval(state.result) * 100) / 100 );
                         state.value = state.result;
                         state.history += `${value}${state.result}`;
                     }
@@ -70,6 +81,7 @@ export const slice = createSlice({
                         case 'ac':
                             state.value = '0';
                             state.history = '0'
+                            state.result = '0';
                             break;
                         case '<':
                             if (state.value.length === 1) {
@@ -92,6 +104,7 @@ export const slice = createSlice({
                     break;
                 default:
             }
+
         }
     }
 })

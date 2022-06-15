@@ -1,14 +1,14 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import './style.scss';
 
 function Display() {
 
   interface State {
     display: {
-      value: string,
-      history: string,
-      result: string,
+      value: string
+      history: string
+      result: string
     }
   }
 

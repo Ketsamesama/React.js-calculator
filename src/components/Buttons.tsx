@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Button from './Button';
-import { useSelector } from 'react-redux'
 
 function Buttons() {
 
@@ -10,7 +9,7 @@ function Buttons() {
         special = 'special',
     }
 
-    const [buttons, setButtons] = useState([
+    const [buttons] = useState([
         { id: 1, value: 'ac', type: type.special },
         { id: 2, value: '<', type: type.special },
         { id: 3, value: '/', type: type.operator },

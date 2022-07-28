@@ -8,7 +8,13 @@ function Buttons() {
     special = 'special',
   }
 
-  const [buttons] = useState([
+  interface IButtons {
+    id: number;
+    value: string;
+    type: type;
+  }
+
+  const [buttons] = useState<IButtons[]>([
     { id: 1, value: 'ac', type: type.special },
     { id: 2, value: '<', type: type.special },
     { id: 3, value: '/', type: type.operator },
@@ -31,8 +37,8 @@ function Buttons() {
 
   return (
     <div className="buttons">
-      {buttons.map((state: any): any => (
-        <Button {...state} />
+      {buttons.map((state: any) => (
+        <Button {...state} key={state.id} />
       ))}
     </div>
   );

@@ -1,16 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { RootState } from 'store/store';
 
-let initialState: {
+interface IState {
   value: string;
   history: string;
   result: string;
   prevOperator: string[];
-} = {
-  value: '0',
-  history: '0',
-  result: '0',
-  prevOperator: [],
-};
+}
 
 interface ReturnState {
   result: string;
@@ -18,17 +14,26 @@ interface ReturnState {
   stateHistory: string;
 }
 
+const initialState: IState = {
+  value: '0',
+  history: '0',
+  result: '0',
+  prevOperator: [],
+};
+
 const checkOperatorRepeat = (
   stateValue: string,
   stateHistory: string,
   result: string,
   actionValue: string
 ): ReturnState => {
+  const penultimateCharacter = stateValue[stateValue.length - 1];
   if (
-    stateValue[stateValue.length - 1] === '+' ||
-    stateValue[stateValue.length - 1] === '-' ||
-    stateValue[stateValue.length - 1] === '/' ||
-    stateValue[stateValue.length - 1] === 'x'
+    //is the penultimate operator
+    penultimateCharacter === '+' ||
+    penultimateCharacter === '-' ||
+    penultimateCharacter === '/' ||
+    penultimateCharacter === 'x'
   ) {
     result = result.slice(0, -1) + (actionValue === 'x' ? '*' : actionValue);
     stateValue = actionValue;
@@ -45,11 +50,17 @@ const checkOperatorRepeat = (
   };
 };
 
+interface IAction {
+  id: number;
+  type: string;
+  value: string;
+}
+
 export const slice = createSlice({
   name: 'slice',
   initialState,
   reducers: {
-    updateDisplayValue: (state, action) => {
+    updateDisplayValue: (state: IState, action: PayloadAction<IAction>) => {
       const value = action.payload.value;
 
       switch (action.payload.type) {

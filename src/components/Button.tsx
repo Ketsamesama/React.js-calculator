@@ -1,5 +1,5 @@
 import { useAppDispatch } from 'hooks';
-import { updateDisplayValue } from '../store/slices/Slices';
+import { updateDisplayValue } from '../store/slices/slice';
 
 function Button({
   id,

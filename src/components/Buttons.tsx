@@ -2,6 +2,10 @@ import { useState } from 'react';
 import Button from './Button';
 
 function Buttons() {
+
+  // все типы и енамы выноси из вункции
+  // им нечего здесь делать функция отвечает как правило за како-то действие или обработку информацию
+  // а описание должно лежать либо во внешних файлах лиюо после всех импортов
   enum type {
     digits = 'digits',
     operator = 'operator',
@@ -13,7 +17,10 @@ function Buttons() {
     value: string;
     type: type;
   }
-
+// не совсем понимаю зачем тебе тут useState, если хочешь сделать так чтобы хранилась одна и таже ссылка при ререндерах
+  // то лучше используй useMemo
+  // можно просто вынести это константу в отдельную папку const и от туда импортировать
+  // я бы вторым вариантом
   const [buttons] = useState<IButtons[]>([
     { id: 1, value: 'ac', type: type.special },
     { id: 2, value: '<', type: type.special },

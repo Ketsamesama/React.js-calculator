@@ -5,6 +5,8 @@ interface IState {
   prevOperator: string[];
 }
 
+// если начал писать все типы через I придерживайся такого стиля
+// впринципе без разницы как, все зависит от команды
 interface ReturnState {
   result: string;
   stateValue: string;

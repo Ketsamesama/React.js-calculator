@@ -1,6 +1,8 @@
 import { useAppDispatch } from 'hooks';
 import { updateDisplayValue } from '../store/slices/slice';
 
+// советую во всех файлах компонентов импортировать React
+
 function Button({
   id,
   type,
@@ -18,6 +20,8 @@ function Button({
   return (
     <button
       className="btn"
+      // я бы лучше написал просто функцию и потом прокидывал ее в onClick
+      // в линию не очень читабельно
       onClick={() => dispatch(updateDisplayValue({ id, type, value }))}
       style={btnStyle}
     >

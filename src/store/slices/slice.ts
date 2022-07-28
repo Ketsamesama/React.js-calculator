@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { checkOperatorRepeat } from './helpers';
 import { IState, IAction } from './types';
 
 const initialState: IState = {

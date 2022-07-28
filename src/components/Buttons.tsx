@@ -37,7 +37,7 @@ function Buttons() {
 
   return (
     <div className="buttons">
-      {buttons.map((state: any) => (
+      {buttons.map((state: IButtons) => (
         <Button {...state} key={state.id} />
       ))}
     </div>

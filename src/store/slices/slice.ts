@@ -1,17 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface IState {
-  value: string;
-  history: string;
-  result: string;
-  prevOperator: string[];
-}
-
-interface ReturnState {
-  result: string;
-  stateValue: string;
-  stateHistory: string;
-}
+import { IState, IAction } from './types';
 
 const initialState: IState = {
   value: '0',
@@ -19,41 +8,6 @@ const initialState: IState = {
   result: '0',
   prevOperator: [],
 };
-
-const checkOperatorRepeat = (
-  stateValue: string,
-  stateHistory: string,
-  result: string,
-  actionValue: string
-): ReturnState => {
-  const penultimateCharacter = stateValue[stateValue.length - 1];
-  if (
-    //is the penultimate operator
-    penultimateCharacter === '+' ||
-    penultimateCharacter === '-' ||
-    penultimateCharacter === '/' ||
-    penultimateCharacter === 'x'
-  ) {
-    result = result.slice(0, -1) + (actionValue === 'x' ? '*' : actionValue);
-    stateValue = actionValue;
-    stateHistory = stateHistory.slice(0, -1) + actionValue;
-  } else {
-    result += actionValue === 'x' ? '*' : actionValue;
-    stateValue = actionValue;
-    stateHistory += actionValue;
-  }
-  return {
-    result,
-    stateValue,
-    stateHistory,
-  };
-};
-
-interface IAction {
-  id: number;
-  type: string;
-  value: string;
-}
 
 export const slice = createSlice({
   name: 'slice',

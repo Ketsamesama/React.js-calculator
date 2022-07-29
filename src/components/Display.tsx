@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { DisplayValue, HistoryValue } from 'selectors';
+import { useAppSelector } from 'hooks';
+import { valueSelector, historySelector } from 'selectors';
 import './style.scss';
 
 function Display() {
-  const dispayValue = DisplayValue();
-  const historyValue = HistoryValue();
+  const dispayValue = useAppSelector(valueSelector);
+  const historyValue = useAppSelector(historySelector);
   return (
     <div className="display">
       <p className="input">{dispayValue}</p>

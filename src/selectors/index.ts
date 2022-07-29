@@ -1,13 +1,6 @@
-import { useAppSelector } from 'hooks';
+import type { RootState } from 'store';
 
-const DisplayValue = () => {
-  const dispayValue = useAppSelector((state) => state.display.value);
-  return dispayValue;
-};
+const valueSelector = (state: RootState) => state.display.value;
+const historySelector = (state: RootState) => state.display.history;
 
-const HistoryValue = () => {
-  const historyValue = useAppSelector((state) => state.display.history);
-  return historyValue;
-};
-
-export { DisplayValue, HistoryValue };
+export { valueSelector, historySelector };

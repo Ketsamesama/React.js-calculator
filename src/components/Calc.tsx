@@ -1,10 +1,9 @@
-import './style.scss';
+import React from 'react';
+
 import Display from './Display';
 import Buttons from './Buttons';
 
-// придерживайся одинаковых импортаов во всех файлах, сначала импорты реакта,
-// потом импорты библиотек потом импортируешь всякие экшены и типы потом компоненты и в самом конце картинки и стили,
-// стили всегда должны быть последними
+import './style.scss';
 
 function Calc() {
   return (

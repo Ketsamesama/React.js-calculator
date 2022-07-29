@@ -1,18 +1,15 @@
+import React, { FC } from 'react';
+
 import { useAppDispatch } from 'hooks';
 import { updateDisplayValue } from '../store/slices/slice';
+import type { IPropsButton } from 'types';
 
-// советую во всех файлах компонентов импортировать React
-
-function Button({
-  id,
-  type,
-  value,
-}: {
-  id: number;
-  type: string;
-  value: string;
-}) {
+const Button: FC<IPropsButton> = ({ id, type, value }) => {
   const dispatch = useAppDispatch();
+
+  const onChangeValue = ({ id, type, value }: IPropsButton) =>
+    dispatch(updateDisplayValue({ id, type, value }));
+
   const btnStyle = {
     gridArea: `a${id}`,
   };
@@ -20,14 +17,12 @@ function Button({
   return (
     <button
       className="btn"
-      // я бы лучше написал просто функцию и потом прокидывал ее в onClick
-      // в линию не очень читабельно
-      onClick={() => dispatch(updateDisplayValue({ id, type, value }))}
+      onClick={() => onChangeValue({ id, type, value })}
       style={btnStyle}
     >
       {value}
     </button>
   );
-}
+};
 
 export default Button;

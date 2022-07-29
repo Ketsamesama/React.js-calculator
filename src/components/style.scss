@@ -8,7 +8,8 @@
   background-color: #dfd8d0;
   border: 2px solid #908b85;
   border-radius: 20px;
-  box-shadow: 7px 10px 34px 1px rgba(0, 0, 0, 0.68), inset -1px -6px 12px 0.1px #89847e;
+  box-shadow: 7px 10px 34px 1px rgba(0, 0, 0, 0.68),
+    inset -1px -6px 12px 0.1px #89847e;
   box-sizing: border-box;
 }
 
@@ -27,9 +28,9 @@
   color: #3a3a3a;
   width: 85%;
   height: 65px;
-  background-color: #C3C2AB;
+  background-color: #c3c2ab;
   margin: auto;
-  border: 2px solid #B4B39D;
+  border: 2px solid #b4b39d;
   border-radius: 5px;
   text-align: right;
   margin-bottom: 15px;
@@ -56,15 +57,14 @@
   padding-right: 10px;
   display: grid;
   grid-template-areas:
-    "a1 a2 a3 a4"
-    "a5 a6 a7 a8"
-    "a9 a10 a11 a12"
-    "a13 a14 a15 a16"
-    "a17 a17 a18 a16";
+    'a1 a2 a3 a4'
+    'a5 a6 a7 a8'
+    'a9 a10 a11 a12'
+    'a13 a14 a15 a16'
+    'a17 a17 a18 a16';
 
   gap: 10px 17px;
   justify-content: center;
-
 }
 
 .btn {
@@ -73,24 +73,22 @@
   // margin-right: 17px;
   // margin-bottom: 10px;
   text-transform: uppercase;
-  background-color: #3A3A3A;
-  color: #E1E1E1;
+  background-color: #3a3a3a;
+  color: #e1e1e1;
   font-size: 14px;
   font-weight: 500;
   font-family: 'Orbitron', sans-serif;
   border-radius: 8px;
   box-shadow: 0px 3px 0px 0px #222121, inset -1px -3px 10px 1px #515151;
 
-  &:nth-child(1), &:nth-child(2) {
+  &:nth-child(1),
+  &:nth-child(2) {
     background-color: #a72d45;
     box-shadow: 0px 3px 0px 0px #671c2a;
   }
-  
+
   &:active {
     transform: translate(0px, 3px);
     box-shadow: none;
   }
-
 }
-
-

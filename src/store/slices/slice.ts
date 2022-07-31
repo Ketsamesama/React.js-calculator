@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { checkOperatorRepeat } from './helpers';
-import { IState, IAction } from './types';
+import type { IState, IAction } from './types';
+import { type } from 'types';
 
 const initialState: IState = {
   value: '0',
@@ -18,7 +19,7 @@ export const slice = createSlice({
       const value = action.payload.value;
 
       switch (action.payload.type) {
-        case 'digits':
+        case type.digits:
           if (state.value.length === 8) {
             state.result = '0';
             state.value = '0';
@@ -42,7 +43,7 @@ export const slice = createSlice({
             state.history += value;
           }
           break;
-        case 'operator':
+        case type.operator:
           state.prevOperator.push(value);
           if (value === '=') {
             if (state.prevOperator[state.prevOperator.length - 2] === '=') {
@@ -69,7 +70,7 @@ export const slice = createSlice({
             }
           }
           break;
-        case 'special':
+        case type.special:
           switch (value) {
             case 'ac':
               state.value = '0';
@@ -88,7 +89,7 @@ export const slice = createSlice({
               if (state.value.slice(-1) === '.') {
                 break;
               } else {
-                state.result += ',';
+                state.result += value;
                 state.value += value;
                 state.history += value;
               }
